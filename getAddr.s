@@ -10,10 +10,19 @@ getAddr:
 
         //YOUR CODE STARTS HERE
 
+	// save all used non-IO registers
+	// includes: X9
+	SUBI SP, SP, #8
+	STUR X9, [SP, #0]
+
 	// elements skipped = row*stride + col
 	UMUL X9, X6, X8 // row*stride
 	ADD X9, X9, X7 // row*stride + col
 	ADD X5, X5, X9 // skip X9 amount of elements
+	
+	// restore all used non-IO registers
+	LDUR X9, [SP, #0]
+	ADDI SP, SP, #8
 
 	BR LR
         //YOUR CODE ENDS HERE
