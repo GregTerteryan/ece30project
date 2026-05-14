@@ -15,4 +15,5 @@ getAddr:
 	ADD X9, X9, X7 // row*stride + col
 	ADD X5, X5, X9 // skip X9 amount of elements
 
+	BR LR
         //YOUR CODE ENDS HERE
