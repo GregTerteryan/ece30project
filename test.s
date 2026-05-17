@@ -22,35 +22,6 @@ ADD     X3, X5, XZR  // Set n = stride
 LDUR    X4, [X4, #0] // load base 
 
 runInference:
-        // Input:
-        //  X0: The address of (pointer to) the first value of matrix A.
-        //  X1: The address of (pointer to) the first value of matrix B.
-        //  X2: The address of (pointer to) the first value of matrix C.
-        //  X3: The current matrix size needed (n)
-        //  X4: The base
-        //  X5: The stride of the matrices
-        
-        ADD X8, X5, XZR
-        ADDI X7, XZR, #1
-        ADDI X6, XZR, #1
-        ADD X5, X0, XZR
-        BL     getAddr
-
-        // Print trace
-        // ADDI   X1, XZR, #10      // X1 = newline character
-        // PUTCHAR X1
-        // ADD    X1, X0, XZR       // X1 = trace value returned in X0
-        // PUTINT X1
-        // ADDI   X1, XZR, #10      // newline
-        // PUTCHAR X1
-
-        // Print result matrix C
-        // LDA    X0, c               // base address of result matrix
-        // LDA    X6, stride          // load stride's address
-        // LDUR    X1, [X6, #0]       // set n = stride
-        // LDUR    X2, [X6, #0]       // set stride
-        
-        // BL     PRINTMATRIX
 
         STOP
 
