@@ -19,7 +19,7 @@ getAddr:
 	// elements skipped = row*stride + col
 	MUL X9, X6, X8 // row*stride
 	ADD X9, X9, X7 // row*stride + col
-	ADDI X10, XZR, #8 // longs are 8 bits
+	ADDI X10, XZR, #8 // longs are 8 bytes
 	MUL X9, X9, X10 // X9 amount of longs
 	ADD X5, X5, X9 // skip to address
 	
