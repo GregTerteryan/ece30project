@@ -161,9 +161,6 @@ j_loop:
 
         B       k_loop            // Start computing sum
 
-        ADDI    X25, X25, #1      // j++
-        B       j_loop            // Repeat for next column
-
 after_j:
         // Get the address of C[i][i], the diagonal element for this row.
         ADD     X5, X21, XZR      // X5 = base address of C
