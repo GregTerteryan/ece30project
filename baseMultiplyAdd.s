@@ -47,13 +47,13 @@ i_loop:
         ADD     X25, XZR, XZR     // j = 0 at the start of each row
 
 j_loop:
-        CMP     X25, X22          // Check if j >= n
-        B.GE    after_j           // If row is done, move to trace update
+        CMP     X25, X22
+        B.GE    after_j
 
         ADD     X13, XZR, XZR     // sum = 0 for C[i][j]
         ADD     X14, XZR, XZR     // k = 0 for dot product
 
-        // Next step will be k loop
+        B       k_loop            // Start computing sum
 
         ADDI    X25, X25, #1      // j++
         B       j_loop            // Repeat for next column
