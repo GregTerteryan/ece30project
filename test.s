@@ -22,6 +22,18 @@ ADD     X3, X5, XZR  // Set n = stride
 LDUR    X4, [X4, #0] // load base 
 
 runInference:
+        // Test splitOffset(a, n, quadrant, stride)
+        // For 4x4 A = 1..16, quadrant 3 should point to A[2][2] = 11.
+
+        LDA     X0, a             // X0 = base address of matrix A
+        ADD     X1, X3, XZR       // X1 = n
+        ADDI    X2, XZR, #3       // X2 = quadrant 3, bottom-right
+        ADD     X3, X5, XZR       // X3 = stride
+
+        BL      splitOffset       // X8 = address of selected quadrant
+
+        LDUR    X1, [X8, #0]      // Load first value in that quadrant
+        PUTINT  X1                // Should print 11 for 4x4 A = 1..16
 
         STOP
 
