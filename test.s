@@ -22,35 +22,27 @@ ADD     X3, X5, XZR  // Set n = stride
 LDUR    X4, [X4, #0] // load base 
 
 runInference:
-        // Input:
-        //  X0: The address of (pointer to) the first value of matrix A.
-        //  X1: The address of (pointer to) the first value of matrix B.
-        //  X2: The address of (pointer to) the first value of matrix C.
-        //  X3: The current matrix size needed (n)
-        //  X4: The base
-        //  X5: The stride of the matrices
-        
-        ADD X8, X5, XZR
-        ADDI X7, XZR, #1
-        ADDI X6, XZR, #1
-        ADD X5, X0, XZR
-        BL     getAddr
+        // Test baseMultiplyAdd directly using loaded A, B, C.
+        // X0 = A, X1 = B, X2 = C already loaded above.
+        // X3 = n already set to stride.
+        // X5 = stride, so copy it into X4 because baseMultiplyAdd expects stride in X4.
+
+        ADD     X4, X5, XZR       // X4 = stride
+
+        BL      baseMultiplyAdd   // returns trace in X0 and updates C
 
         // Print trace
-        // ADDI   X1, XZR, #10      // X1 = newline character
-        // PUTCHAR X1
-        // ADD    X1, X0, XZR       // X1 = trace value returned in X0
-        // PUTINT X1
-        // ADDI   X1, XZR, #10      // newline
-        // PUTCHAR X1
+        ADD     X1, X0, XZR
+        PUTINT  X1
+        ADDI    X1, XZR, #10
+        PUTCHAR X1
 
-        // Print result matrix C
-        // LDA    X0, c               // base address of result matrix
-        // LDA    X6, stride          // load stride's address
-        // LDUR    X1, [X6, #0]       // set n = stride
-        // LDUR    X2, [X6, #0]       // set stride
-        
-        // BL     PRINTMATRIX
+        // Print C matrix
+        LDA     X0, c
+        LDA     X6, stride
+        LDUR    X1, [X6, #0]      // print n = stride
+        LDUR    X2, [X6, #0]      // print stride
+        BL      PRINTMATRIX
 
         STOP
 
