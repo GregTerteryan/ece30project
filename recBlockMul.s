@@ -240,7 +240,6 @@ rbm_recursive_case:
         BL      recBlockMul
         ADD     X26, X26, X0      // trace += returned trace for full C22
 
-
         // Return accumulated trace.
         ADD     X0, X26, XZR
         B       rbm_done
